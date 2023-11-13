@@ -25,7 +25,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $users = User::all();
+        $users = User::where('notification_switch',true)->get();
         $message_type = ['marketing','invoices','system'];
         return view('post.create',['message_type'=>$message_type,'users'=>$users]);
     }
@@ -37,7 +37,7 @@ class PostController extends Controller
     {
 
         if($request->users_type == 'all'){
-            $all_users = User::all()->pluck('id')->toArray();
+            $all_users = User::where('notification_switch',true)->pluck('id')->toArray();
             $users = implode(',',$all_users);
         }else{
             $users = implode(',',$request->users);
@@ -56,6 +56,8 @@ class PostController extends Controller
             Notification::create([
                 'user_id'=> $user,
                 'post_id'=> $post->id,
+                'expire_at' => \Carbon\Carbon::parse($request->expire_at)->format('Y-m-d H:i'),
+                'created_at' => now(),
             ]);
         }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::with('notifications')->get();
         return view('user.index',['users'=>$users]);
     }
 
@@ -84,5 +85,12 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function MarkNotification(Notification $notification)
+    {
+        $notification->checked_at = now();
+        $notification->update();
+        return redirect()->back();
     }
 }

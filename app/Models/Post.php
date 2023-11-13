@@ -18,4 +18,9 @@ class Post extends Model
         'created_at'
     ];
 
+    public function notification()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
 }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('post_id');
             $table->foreignId('user_id');
             $table->dateTime('checked_at', $precision = 0)->nullable();
+            $table->dateTime('expire_at', $precision = 0);
             $table->timestamps();
         });
     }

@@ -14,6 +14,13 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"   crossorigin="anonymous"></script>
         <style>
             .pt-0{padding-top: 0px;}
+            #notification{
+                cursor: pointer;
+            }
+            #notificationBlock{display: none;}
+            .show{
+                display: block !important;
+            }
         </style>
     </head>
     <body class="antialiased">

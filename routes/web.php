@@ -21,4 +21,4 @@ Route::get('/', function () {
 
 Route::resource('user', UserController::class);
 Route::resource('post', PostController::class);
-
+Route::get('/marknotification/{notification}',[UserController::class,'MarkNotification']);

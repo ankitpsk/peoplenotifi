@@ -12,7 +12,6 @@
                     <th scope="col">Type</th>
                     <th scope="col">Text</th>
                     <th scope="col">Expire Time</th>
-                    <th scope="col">Users</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,7 +21,6 @@
                         <td>{{ $post->type }}</td>
                         <td>{{ $post->short_text }}</td>
                         <td>{{ $post->expire_at}}</td>
-                        <td>User List</td>
                     </tr>
                 @endforeach
             </tbody>

@@ -11,7 +11,7 @@
                     <th scope="col">User Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Phone</th>
-                    <th scope="col">Notification Count</th>
+                    <th scope="col">Notification Status/Count</th>
                     <th scope="col">Explore</th>
                 </tr>
             </thead>
@@ -21,7 +21,7 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->phone_number ?? 'N/A' }}</td>
-                        <td>0</td>
+                        <td>{{$user->notification_switch == 1 ? 'On' : 'Off'}} / {{ count($user->notifications->where('checked_at',null))}}</td>
                         <td><a href="{{ route('user.show',$user->id) }}">view</a></td>
                     </tr>
                 @endforeach

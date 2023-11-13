@@ -13,6 +13,17 @@ class Notification extends Model
         'post_id',
         'checked_at',
         'created_at',
+        'expire_at'
     ];
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
 }
