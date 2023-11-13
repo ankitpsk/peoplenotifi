@@ -3,6 +3,7 @@
 @section('body')
 <div>
     <div class="p-5 pt-0" style="padding-top:5px !important">
+        <a class="btn btn-warning" style="margin-bottom:10px" href="/">Home</a>
         <a class="btn btn-success" style="margin-bottom:10px" href="{{ route('user.create') }}">Add New User</a>
         <table class="table">
             <thead class="thead-dark">
