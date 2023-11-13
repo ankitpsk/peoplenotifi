@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->text('type');
-            $table->text('short_text')->nullable();
-            // $table->text('users')->nullable();
-            $table->dateTime('expire_at', $precision = 0);
+            $table->foreignId('post_id');
+            $table->foreignId('user_id');
+            $table->dateTime('checked_at', $precision = 0)->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('notifications');
     }
 };

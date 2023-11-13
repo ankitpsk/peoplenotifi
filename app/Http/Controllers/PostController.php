@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -23,8 +25,9 @@ class PostController extends Controller
      */
     public function create()
     {
+        $users = User::all();
         $message_type = ['marketing','invoices','system'];
-        return view('post.create',['message_type'=>$message_type]);
+        return view('post.create',['message_type'=>$message_type,'users'=>$users]);
     }
 
     /**
@@ -32,14 +35,30 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
+        if($request->users_type == 'all'){
+            $all_users = User::all()->pluck('id')->toArray();
+            $users = implode(',',$all_users);
+        }else{
+            $users = implode(',',$request->users);
+        }
+
         $post = Post::create([
             'type' => $request->type,
             'short_text' => $request->short_text,
-            'users' => $request->users,
+            // 'users' => $users,
             'expire_at' => \Carbon\Carbon::parse($request->expire_at)->format('Y-m-d H:i'),
             'created_at' => now(),
         ]);
-        // $post->id; user array
+
+        // lets Notifi User
+        foreach(explode(',',$users) as $user){
+            Notification::create([
+                'user_id'=> $user,
+                'post_id'=> $post->id,
+            ]);
+        }
+
         return redirect(route('post.index'))->with(['success','Post Added Scussfully']);
     }
 
