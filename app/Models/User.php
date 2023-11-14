@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -48,6 +50,7 @@ class User extends Authenticatable
 
     public function notifications()
     {
-        return $this->hasMany(Notification::class);
+        $currentDateTime = strtotime(Carbon::now()->format('Y-m-d H:i'));
+        return $this->hasMany(Notification::class)->whereRaw('UNIX_TIMESTAMP(expire_at) > ?', [$currentDateTime]);
     }
 }
